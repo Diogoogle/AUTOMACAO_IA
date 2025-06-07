@@ -18,8 +18,9 @@ y_treino = df_treino['Comando_a_ser_executado'].values.ravel()
 modelo_nb = GaussianNB()
 modelo_nb.fit(x_treino, y_treino)
 
+print("Treinamento realizado !")
+
 joblib.dump(modelo_nb, 'modelo_nb.joblib')
 joblib.dump(vetorizador, 'vetorizador.joblib')
-
 
 
