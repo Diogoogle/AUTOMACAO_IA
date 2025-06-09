@@ -1,5 +1,4 @@
-dados_treino = {
-    'Mensagem_do_usuario': [
+mensagens_do_usuario = [
         "Por favor, acesse o Youtube",
         "Abra o Youtube",
         "Quero acessar o Youtube",
@@ -58,8 +57,9 @@ dados_treino = {
         "Abra a pasta da Unesc",
         "Acesse o diretório da Unesc",
         "Gostaria de ir para a pasta da Unesc"
-    ],
-    'Comando_a_ser_executado': [
+    ]
+
+comandos_a_serem_executados = [
         "Acessando o Youtube...",
         "Acessando o Youtube...",
         "Acessando o Youtube...",
@@ -119,6 +119,19 @@ dados_treino = {
         "Abrindo pasta da Unesc",
         "Abrindo pasta da Unesc"
     ]
+
+map_mensagem_comando = {}
+for mensagem, comando in zip(mensagens_do_usuario, comandos_a_serem_executados):
+    map_mensagem_comando[mensagem] = comando
+
+map_mensagem_comando["Abra o google Drive"] = "Acessando o google Drive"
+map_mensagem_comando["Acesse o google Drive"] = "Acessando o google Drive"
+map_mensagem_comando["Encaminhe para o google Drive, por favor"] = "Acessando o google Drive"
+
+
+dados_treino = {
+    'Mensagem_do_usuario': map_mensagem_comando.keys(),
+    'Comando_a_ser_executado': map_mensagem_comando.values()
 }
 
 

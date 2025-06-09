@@ -22,6 +22,8 @@ class Controller:
                 self.abrirPastaUnesc()
             case ("Abrindo espaço de atividades"):
                 self.inicializaEspacoDeAtividades()
+            case ("Acessando o google Drive"):
+                self.acessandoOGoogleDrive()
     
     def acessarChatGPT(self):
         web.open('https://chatgpt.com/')
@@ -41,7 +43,7 @@ class Controller:
 
     def fazerLoginNoAVA(self):
         web.open('https://ava.unesc.net/login/index.php')
-        sleep(5)
+        sleep(7)
         pa.press('tab')
         pa.press('tab')
         sleep(2)
@@ -68,3 +70,6 @@ class Controller:
         self.abrirPastaUnesc()
         sleep(1)
         self.acessarChatGPT()
+    
+    def acessandoOGoogleDrive(self):
+        web.open('https://drive.google.com/drive/u/0/home')
