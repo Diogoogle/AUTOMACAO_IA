@@ -24,7 +24,12 @@ class Controller:
                 self.inicializaEspacoDeAtividades()
             case ("Acessando o google Drive"):
                 self.acessandoOGoogleDrive()
+            case ("Acessando o Youtube..."):
+                self.acessarOYoutbe()
     
+    def acessarOYoutbe(self):
+        web.open('https://www.youtube.com/')
+
     def acessarChatGPT(self):
         web.open('https://chatgpt.com/')
 

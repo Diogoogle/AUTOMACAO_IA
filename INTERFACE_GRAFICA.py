@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from IA import IA
 from AUTOMAÇÃO import Controller
+from AUDIO import Listener
 
 ctk.set_appearance_mode("dark")
 
@@ -11,6 +12,7 @@ class InterfaceGrafica:
         self.titulo = titulo
         self.agente_inteligente = IA()
         self.controler = Controller()
+        self.listener = Listener()
 
     def enviar(self):
         mensagem_usuario = self.caixa_texto_usuario.get("1.0", "end-1c")
@@ -38,6 +40,29 @@ class InterfaceGrafica:
         self.criaCaixaDeTextoUsuario(self.largura//2 - 30, self.altura//2 - 30, 1, 1)
 
         self.criaBotao("ENVIAR", self.enviar, 2, 0)
+
+        self.criaSwitchAudio(3, 0)
+
+    def enviarMensagemPorAudio(self):
+        if(self.switch_audio.get() == "on"):
+            self.monstrarRespostaDoModeloNaTela("Ouvindo...")
+            mensagem_usuario = self.listener.ouvirAudio()
+            self.caixa_texto_usuario.delete("1.0", "end")  # Limpa o texto anterior
+            self.caixa_texto_usuario.insert("1.0", mensagem_usuario) 
+            reposta_do_modelo = self.agente_inteligente.previsao(mensagem_usuario)
+            self.agente_inteligente.speaker.falar(reposta_do_modelo)
+            self.caixa_texto_ia.configure(state="normal")
+            self.caixa_texto_ia.delete("1.0", "end")  # Limpa o texto anterior
+            self.caixa_texto_ia.insert("1.0", reposta_do_modelo)  # Insere o novo texto
+            self.caixa_texto_ia.configure(state="disabled")
+            self.controler.direcionar(reposta_do_modelo)
+
+    
+    def criaSwitchAudio(self, linha, coluna):
+        self.modo_de_audio = ctk.StringVar(value="on")
+        self.switch_audio = ctk.CTkSwitch(self.root, text="AUDIO MODE", command=self.enviarMensagemPorAudio,
+            variable=self.modo_de_audio, onvalue="on", offvalue="off")
+        self.switch_audio.grid(row=linha, column=coluna, padx=20, pady=20)
 
     def criaCaixaDeTexto(self, largura, altura, linha, coluna):
         text_box = ctk.CTkTextbox(self.root, width=largura, height=altura, wrap='word', font=('Helvetica', 17))
