@@ -2,6 +2,7 @@ import pyautogui as pa
 import webbrowser as web
 from time import sleep
 import os
+from pathlib import Path
 
 class Controller:
     def __init__(self):
@@ -28,14 +29,27 @@ class Controller:
             case ("Acessando o Youtube..."):
                 self.acessarOYoutbe()
             case ("Criando pasta na area de trabalho"):
-                self.criarPastaNaAreaDeTrabalho()
+                self.criarPasta()
     
+    def criaArquivoDentroDePastaNaAreaDeTrabalho(self, nome_da_pasta:str, nome_do_arquivo:str):
+        area_de_trabalho = Path.home() / 'Desktop' 
+        pasta = area_de_trabalho / nome_da_pasta
+
+        if (not pasta.exists()):
+            self.criarPasta(nome_da_pasta)
+
+        caminho_do_arquivo = pasta / nome_do_arquivo
+
+        if (not caminho_do_arquivo.exists()):
+            caminho_do_arquivo.touch()
+
+
     def acessarOYoutbe(self):
         web.open('https://www.youtube.com/')
 
-    def criarPastaNaAreaDeTrabalho(self):
+    def criarPasta(self, nome_da_pasta="Nova Pasta"):
         desktop = os.path.join(os.path.expanduser("~"), "Desktop")
-        nova_pasta = os.path.join(desktop, "Nova Pasta")
+        nova_pasta = os.path.join(desktop, nome_da_pasta)
         if not os.path.exists(nova_pasta):
             os.makedirs(nova_pasta)
 

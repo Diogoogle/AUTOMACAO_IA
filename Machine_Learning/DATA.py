@@ -2,7 +2,7 @@
 map_mensagem_comando = {}
 
 map_mensagem_comando["Por favor, acesse o Youtube"] = "Acessando o Youtube..."
-map_mensagem_comando["Abra o Youtube"] = "Acessando o Youtube..."
+map_mensagem_comando["Por favor, abra o youtube para mim"] = "Acessando o Youtube..."
 map_mensagem_comando["Quero acessar o Youtube"] = "Acessando o Youtube..."
 map_mensagem_comando["Inicie o Youtube"] = "Acessando o Youtube..."
 map_mensagem_comando["Abra o Google"] = "Abrindo o Google"
@@ -53,6 +53,7 @@ map_mensagem_comando["Inteligencia Artificial do ChatGPT, acessa-la"] = "Acessan
 map_mensagem_comando["Abrir Notion"] = "Acessando o Notion"
 map_mensagem_comando["Acesse o Notion"] = "Acessando o Notion"
 map_mensagem_comando["Por favor, acessar Notion"] = "Acessando o Notion"
+map_mensagem_comando["Preciso usar o Notion, poderia ir até lá?"] = "Acessando o Notion"
 map_mensagem_comando["Acesse o AVA"] = "Fazendo login no AVA"
 map_mensagem_comando["Abra o AVA"] = "Fazendo login no AVA"
 map_mensagem_comando["Faça login na minha conta do AVA"] = "Fazendo login no AVA"
@@ -68,7 +69,12 @@ map_mensagem_comando["Crie uma pasta nova na area de trabalho"] = "Criando pasta
 map_mensagem_comando["Crie um novo diretorio na area de trabalho"] = "Criando pasta na area de trabalho"
 map_mensagem_comando["Crie uma diretorio novo na area de trabalho"] = "Criando pasta na area de trabalho"
 map_mensagem_comando["Crie um diretorio na area de trabalho"] = "Criando pasta na area de trabalho"
-
+map_mensagem_comando["Crie o arquivo teste.py dentro da pasta"] = "Criando arquivo dentro da pasta determinada"
+map_mensagem_comando["Crie o arquivo texto.txt dentro da pasta"] = "Criando arquivo dentro da pasta determinada"
+map_mensagem_comando["Crie o arquivo pesquisa.docx dentro da pasta"] = "Criando arquivo dentro da pasta determinada"
+map_mensagem_comando["Crie o arquivo numeros.java dentro da pasta"] = "Criando arquivo dentro da pasta determinada"
+map_mensagem_comando["Crie o arquivo series.py dentro da pasta"] = "Criando arquivo dentro da pasta determinada"
+map_mensagem_comando["Por favor, na pasta teste poderia criar o arquivo judo.pdf"] = "Criando arquivo dentro da pasta determinada"
 
 dados_treino = {
     'Mensagem_do_usuario': map_mensagem_comando.keys(),

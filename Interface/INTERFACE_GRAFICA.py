@@ -7,6 +7,7 @@ from Automacao.AUTOMAÇÃO import Controller
 from Audio.AUDIO import Listener
 from Component_manager import Component_Manager
 from PIL import Image
+from Funcoes_do_sistema.sistem_functions import *
 
 
 ctk.set_appearance_mode("dark")
@@ -25,10 +26,23 @@ class InterfaceGrafica:
     def enviar(self):
         mensagem_usuario = self.caixa_texto_usuario.get("1.0", "end-1c")
         print(f"Texto do usuário: {mensagem_usuario}")
-        reposta_do_modelo = self.agente_inteligente.previsao(mensagem_usuario)
-        print(reposta_do_modelo)
-        self.monstrarRespostaDoModeloNaTela(reposta_do_modelo)
-        self.controler.direcionar(reposta_do_modelo)
+        nome_da_pasta = extrair_nome_pasta(mensagem_usuario)
+        nome_do_arquivo, nome_da_pasta_onde_o_arquivo_sera_inserido = extrair_nome_da_pasta_e_do_arquivo_que_sera_criado_nela(mensagem_usuario)
+        if (nome_da_pasta):
+            reposta_do_modelo = self.agente_inteligente.previsao(mensagem_usuario)
+            print(reposta_do_modelo)
+            self.monstrarRespostaDoModeloNaTela(reposta_do_modelo)
+            self.controler.criarPasta(nome_da_pasta)
+        elif (nome_do_arquivo and nome_da_pasta_onde_o_arquivo_sera_inserido):
+            resposta_do_modelo = self.agente_inteligente.previsao(mensagem_usuario)
+            print(resposta_do_modelo)
+            self.monstrarRespostaDoModeloNaTela(resposta_do_modelo)
+            self.controler.criaArquivoDentroDePastaNaAreaDeTrabalho(nome_da_pasta_onde_o_arquivo_sera_inserido, nome_do_arquivo)
+        else:
+            reposta_do_modelo = self.agente_inteligente.previsao(mensagem_usuario)
+            print(reposta_do_modelo)
+            self.monstrarRespostaDoModeloNaTela(reposta_do_modelo)
+            self.controler.direcionar(reposta_do_modelo)
 
     def monstrarRespostaDoModeloNaTela(self, reposta_do_modelo):
         self.caixa_texto_ia.configure(state="normal")
