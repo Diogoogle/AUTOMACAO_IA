@@ -4,7 +4,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-from Machine_Learning.DATA import dados_treino
+from MACHINE_LEARNING.DATA import dados_treino
 import joblib
 
 # DataFrame

@@ -26,21 +26,21 @@ def verificaSeAPastaVeioAntesDoNomeDoArquivo(mensagem):
 def extrair_nome_da_pasta_e_do_arquivo_que_sera_criado_nela(mensagem):
     print("Opa")
     padroes = [
-        r'(.+) (?:na|no|dentro do|dentro da) (?:pasta|diretorio) (.+)(.+)(?:crie|criar)(.+)arquivo (?:chamado) (.+)',
-        r'(.+)(?:crie|criar)(.+)arquivo (.+) (?:na|no|dentro do|dentro da) (?:pasta|diretorio) (.+)',
+        r'dentro da (?:pasta|diretorio) ([\w\-. ]+) (?:crie|criar) (?:um |o )?arquivo (?:chamado )?([\w\-. ]+)',
+        r'(?:na|no|dentro do|dentro da) (?:pasta|diretorio) ([\w\-. ]+) (?:crie|criar) (?:um |o )?arquivo (?:chamado )?([\w\-. ]+)',
+        r'(?:crie|criar) (?:um |o )?arquivo (?:chamado )?([\w\-. ]+) (?:na|no|dentro do|dentro da) (?:pasta|diretorio) ([\w\-. ]+)',
     ]
     for padrao in padroes:
         match = re.search(padrao, mensagem, re.IGNORECASE)
+        print(match)
         if match:
-            # Ajuste a ordem dos grupos conforme o padrão
-            # print(padrao.split(".*"))
             if verificaSeAPastaVeioAntesDoNomeDoArquivo(mensagem):
-                pasta = match.group(2).strip()
-                arquivo = match.group(5).strip()
+                pasta = match.group(1).strip()
+                arquivo = match.group(2).strip()
                 print(f"Arquivo: {arquivo}, Pasta: {pasta}")
             else:
-                arquivo = match.group(3).strip()
-                pasta = match.group(4).strip()
+                arquivo = match.group(1).strip()
+                pasta = match.group(2).strip()
                 print(f"Arquivo: {arquivo}, Pasta: {pasta}")
             return arquivo, pasta
     print("Está retornando None")

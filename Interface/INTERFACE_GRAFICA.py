@@ -2,13 +2,13 @@ import customtkinter as ctk
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from Machine_Learning.IA import IA
-from Automacao.AUTOMAÇÃO import Controller
-from Audio.AUDIO import Listener
-from Component_manager import Component_Manager
+from MACHINE_LEARNING.IA import IA
+from AUTOMACAO.AUTOMAÇÃO import Controller
+from AUDIO.AUDIO import Listener
+from COMPONENT_MANAGER import ComponentManager, ComponentManagerTelaSugestoes
 from PIL import Image
-from Funcoes_do_sistema.sistem_functions import *
-
+from FUNCOES_DO_SISTEMA.SUPORT_FUNCTIONS import *
+from MACHINE_LEARNING.DATA import map_mensagem_comando
 
 ctk.set_appearance_mode("dark")
 
@@ -20,7 +20,7 @@ class InterfaceGrafica:
         self.agente_inteligente = IA()
         self.controler = Controller()
         self.listener = Listener()
-        self.component_manager = Component_Manager()
+        self.component_manager = ComponentManager()
         self.modo_light_dark_atual = "dark"
 
     def enviar(self):
@@ -69,6 +69,8 @@ class InterfaceGrafica:
 
         self.btn_toogle_light_dark_mode = self.component_manager.criaBotaoComImagem('./Interface/imagens/sol.png',0,2 ,self.toogleLightDark)
 
+        self.btn_janela_sugestoes_prompts = self.component_manager.criaBotao(linha=0,coluna=3,texto="? Sugestões de Prompts ?",comando=self.criarJanelaDeSugestoesDePrompts)
+
     def toogleLightDark(self):
         if(self.modo_light_dark_atual == "dark"):
             ctk.set_appearance_mode("light")
@@ -109,6 +111,27 @@ class InterfaceGrafica:
     def criaLabel(self, linha, coluna, texto, cor_do_texto):
         novo_label = ctk.CTkLabel(self.root, text=texto, font=("Helvetica", 20), text_color = cor_do_texto)
         novo_label.grid(row=linha,column=coluna, padx=20, pady=20)
+
+    def criarJanelaDeSugestoesDePrompts(self):
+        self.janela_sugestoes = ctk.CTkToplevel(self.root)
+        self.janela_sugestoes.title("Sugestões de Prompts")
+        self.janela_sugestoes.geometry("600x500")
+
+        self.component_manager_tela_sugestoes = ComponentManagerTelaSugestoes(self.janela_sugestoes)
+        
+        self.component_manager_tela_sugestoes.criaLabel(0, 0, "Sugestões de Prompts", "orange")
+
+        self.scrollable_frame_janela_sugestoes = self.component_manager_tela_sugestoes.criaScrolableFrame(1, 0, 700, 500, "Sugestões")
+
+        def gerenciaTextoDoItem(msg):
+            self.caixa_texto_usuario.delete("1.0", "end")
+            self.caixa_texto_usuario.insert("1.0", msg)
+
+        for k, mensagem in enumerate(map_mensagem_comando.keys()):
+            print(f"Adicionando sugestão: {mensagem}")
+            self.component_manager_tela_sugestoes.criaItemDeSugestao(k, 0, mensagem, lambda msg=mensagem: gerenciaTextoDoItem(msg), self.scrollable_frame_janela_sugestoes)
+
+
 
 if __name__ == "__main__":
     interface = InterfaceGrafica(850, 550, "Interface Gráfica")
